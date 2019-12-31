@@ -29,16 +29,12 @@ Help us create configs for *all the LSPs!*
   ```
   :Plug 'neovim/nvim-lsp'
   ```
-- Call `:packadd nvim-lsp` in your config if you installed nvim-lsp to
-  'packpath' or if you use a package manager such as minpac.
-
 ## Usage
 
 Each config provides a `setup()` function, to initialize the server with
 reasonable defaults and some server-specific things like commands or different
 diagnostics.
 
-    vim.api.nvim_command('packadd nvim-lsp')
     require'nvim_lsp'.<config>.setup{name=…, settings = {…}, …}
 
 Find the [config](#configurations) for your language, then paste the example
@@ -53,7 +49,6 @@ config provides `nvim_lsp.texlab.buf_build({bufnr})`.
 To use the defaults, just call `setup()` with an empty `config` parameter.
 For the `gopls` config, that would be:
 
-    vim.api.nvim_command('packadd nvim-lsp')
     require'nvim_lsp'.gopls.setup{}
 
 ### Example: override some defaults
@@ -1957,9 +1952,9 @@ This server accepts configuration via the `settings` key.
   
   Check all targets and tests (will be passed as `--all-targets`)
 
-- **`rust-analyzer.cargo-watch.arguments`**: `string`
+- **`rust-analyzer.cargo-watch.arguments`**: `array`
 
-  Default: `""`
+  Default: `{}`
   
   `cargo-watch` arguments. (e.g: `--features="shumway,pdf"` will run as `cargo watch -x "check --features="shumway,pdf""` )
 
@@ -1969,11 +1964,11 @@ This server accepts configuration via the `settings` key.
   
   `cargo-watch` command. (e.g: `clippy` will run as `cargo watch -x clippy` )
 
-- **`rust-analyzer.cargo-watch.ignore`**: `array`
+- **`rust-analyzer.cargo-watch.enable`**: `boolean`
 
-  Default: `{}`
+  Default: `true`
   
-  A list of patterns for cargo-watch to ignore (will be passed as `--ignore`)
+  Run `cargo check` for diagnostics on save
 
 - **`rust-analyzer.cargoFeatures.allFeatures`**: `boolean`
 
@@ -1996,12 +1991,6 @@ This server accepts configuration via the `settings` key.
   Default: `true`
   
   Display additional type information in the editor
-
-- **`rust-analyzer.enableCargoWatchOnStartup`**: `enum { "ask", "enabled", "disabled" }`
-
-  Default: `"ask"`
-  
-  Whether to run `cargo watch` on startup
 
 - **`rust-analyzer.enableEnhancedTyping`**: `boolean`
 
@@ -2046,12 +2035,6 @@ This server accepts configuration via the `settings` key.
 - **`rust-analyzer.rainbowHighlightingOn`**: `boolean`
 
   When highlighting Rust code, use a unique color per identifier
-
-- **`rust-analyzer.trace.cargo-watch`**: `enum { "off", "error", "verbose" }`
-
-  Default: `"off"`
-  
-  Trace output of cargo-watch
 
 - **`rust-analyzer.trace.server`**: `enum { "off", "messages", "verbose" }`
 
